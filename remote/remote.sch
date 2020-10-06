@@ -1,0 +1,114 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_ST_STM32F0:STM32F030F4Px U?
+U 1 1 5F7BFCF8
+P 1900 1850
+F 0 "U?" H 1900 961 50  0000 C CNN
+F 1 "STM32F030F4Px" H 1900 870 50  0000 C CNN
+F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 1500 1150 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00088500.pdf" H 1900 1850 50  0001 C CNN
+	1    1900 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery_Cell BT?
+U 1 1 5F7C0B76
+P 4100 1550
+F 0 "BT?" H 4218 1646 50  0000 L CNN
+F 1 "Battery_Cell" H 4218 1555 50  0000 L CNN
+F 2 "" V 4100 1610 50  0001 C CNN
+F 3 "~" V 4100 1610 50  0001 C CNN
+	1    4100 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+BATT #PWR?
+U 1 1 5F7C1362
+P 4100 1350
+F 0 "#PWR?" H 4100 1200 50  0001 C CNN
+F 1 "+BATT" H 4115 1523 50  0000 C CNN
+F 2 "" H 4100 1350 50  0001 C CNN
+F 3 "" H 4100 1350 50  0001 C CNN
+	1    4100 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7C1B1D
+P 4100 1650
+F 0 "#PWR?" H 4100 1400 50  0001 C CNN
+F 1 "GND" H 4105 1477 50  0000 C CNN
+F 2 "" H 4100 1650 50  0001 C CNN
+F 3 "" H 4100 1650 50  0001 C CNN
+	1    4100 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5F7C1E73
+P 3700 1500
+F 0 "C?" H 3585 1454 50  0000 R CNN
+F 1 "1uF" H 3585 1545 50  0000 R CNN
+F 2 "" H 3738 1350 50  0001 C CNN
+F 3 "~" H 3700 1500 50  0001 C CNN
+	1    3700 1500
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	3700 1350 4100 1350
+Connection ~ 4100 1350
+Wire Wire Line
+	4100 1650 3700 1650
+Connection ~ 4100 1650
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5F7C31FB
+P 5700 1350
+F 0 "SW?" H 5700 1635 50  0000 C CNN
+F 1 "SW_Push" H 5700 1544 50  0000 C CNN
+F 2 "" H 5700 1550 50  0001 C CNN
+F 3 "~" H 5700 1550 50  0001 C CNN
+	1    5700 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+BATT #PWR?
+U 1 1 5F7C3952
+P 5350 1300
+F 0 "#PWR?" H 5350 1150 50  0001 C CNN
+F 1 "+BATT" H 5365 1473 50  0000 C CNN
+F 2 "" H 5350 1300 50  0001 C CNN
+F 3 "" H 5350 1300 50  0001 C CNN
+	1    5350 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 1300 5350 1350
+Wire Wire Line
+	5350 1350 5500 1350
+$Comp
+L Transistor_FET:2N7002 Q?
+U 1 1 5F7C47E5
+P 6400 1350
+F 0 "Q?" H 6604 1396 50  0000 L CNN
+F 1 "2N7002" H 6604 1305 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6600 1275 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6400 1350 50  0001 L CNN
+	1    6400 1350
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

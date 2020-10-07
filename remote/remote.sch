@@ -101,14 +101,14 @@ Wire Wire Line
 Wire Wire Line
 	5350 1350 5500 1350
 $Comp
-L Transistor_FET:2N7002 Q?
-U 1 1 5F7C47E5
-P 6400 1350
-F 0 "Q?" H 6604 1396 50  0000 L CNN
-F 1 "2N7002" H 6604 1305 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 6600 1275 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6400 1350 50  0001 L CNN
-	1    6400 1350
+L Transistor_FET:AO3401A Q?
+U 1 1 5F7D4874
+P 6550 1350
+F 0 "Q?" H 6755 1396 50  0000 L CNN
+F 1 "AO3401A" H 6755 1305 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 6750 1275 50  0001 L CIN
+F 3 "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf" H 6550 1350 50  0001 L CNN
+	1    6550 1350
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

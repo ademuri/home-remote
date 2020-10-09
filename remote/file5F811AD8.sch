@@ -1,0 +1,197 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+BATT #PWR?
+U 1 1 5F813448
+P 3800 3400
+AR Path="/5F813448" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F813448" Ref="#PWR02"  Part="1" 
+F 0 "#PWR02" H 3800 3250 50  0001 C CNN
+F 1 "+BATT" H 3815 3573 50  0000 C CNN
+F 2 "" H 3800 3400 50  0001 C CNN
+F 3 "" H 3800 3400 50  0001 C CNN
+	1    3800 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 3400 3800 3450
+$Comp
+L Transistor_FET:AO3401A Q?
+U 1 1 5F813450
+P 4700 3450
+AR Path="/5F813450" Ref="Q?"  Part="1" 
+AR Path="/5F811AD9/5F813450" Ref="Q9"  Part="1" 
+F 0 "Q9" H 4905 3496 50  0000 L CNN
+F 1 "AO3401A" H 4905 3405 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 4900 3375 50  0001 L CIN
+F 3 "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf" H 4700 3450 50  0001 L CNN
+F 4 "M" H 4700 3450 50  0001 C CNN "Spice_Primitive"
+F 5 "AO3401A" H 4700 3450 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 4700 3450 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "AO3401A.mod" H 4700 3450 50  0001 C CNN "Spice_Lib_File"
+	1    4700 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 5F813456
+P 4800 3250
+AR Path="/5F813456" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F813456" Ref="#PWR04"  Part="1" 
+F 0 "#PWR04" H 4800 3100 50  0001 C CNN
+F 1 "VCC" H 4817 3423 50  0000 C CNN
+F 2 "" H 4800 3250 50  0001 C CNN
+F 3 "" H 4800 3250 50  0001 C CNN
+	1    4800 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5F81345C
+P 4800 3800
+AR Path="/5F81345C" Ref="R?"  Part="1" 
+AR Path="/5F811AD9/5F81345C" Ref="R10"  Part="1" 
+F 0 "R10" H 4870 3846 50  0000 L CNN
+F 1 "100k" H 4870 3755 50  0000 L CNN
+F 2 "" V 4730 3800 50  0001 C CNN
+F 3 "~" H 4800 3800 50  0001 C CNN
+	1    4800 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F813463
+P 4800 3950
+AR Path="/5F813463" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F813463" Ref="#PWR05"  Part="1" 
+F 0 "#PWR05" H 4800 3700 50  0001 C CNN
+F 1 "GND" H 4805 3777 50  0000 C CNN
+F 2 "" H 4800 3950 50  0001 C CNN
+F 3 "" H 4800 3950 50  0001 C CNN
+	1    4800 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:AO3401A Q?
+U 1 1 5F813469
+P 5650 3650
+AR Path="/5F813469" Ref="Q?"  Part="1" 
+AR Path="/5F811AD9/5F813469" Ref="Q10"  Part="1" 
+F 0 "Q10" H 5855 3696 50  0000 L CNN
+F 1 "AO3401A" H 5855 3605 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5850 3575 50  0001 L CIN
+F 3 "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf" H 5650 3650 50  0001 L CNN
+F 4 "M" H 5650 3650 50  0001 C CNN "Spice_Primitive"
+F 5 "AO3401A" H 5650 3650 50  0001 C CNN "Spice_Model"
+F 6 "Y" H 5650 3650 50  0001 C CNN "Spice_Netlist_Enabled"
+F 7 "AO3401A.mod" H 5650 3650 50  0001 C CNN "Spice_Lib_File"
+	1    5650 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 3650 5450 3650
+Connection ~ 4800 3650
+$Comp
+L power:VCC #PWR?
+U 1 1 5F813471
+P 6000 4050
+AR Path="/5F813471" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F813471" Ref="#PWR06"  Part="1" 
+F 0 "#PWR06" H 6000 3900 50  0001 C CNN
+F 1 "VCC" H 6017 4223 50  0000 C CNN
+F 2 "" H 6000 4050 50  0001 C CNN
+F 3 "" H 6000 4050 50  0001 C CNN
+	1    6000 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 3850 5750 4050
+Wire Wire Line
+	5750 4050 6000 4050
+Wire Wire Line
+	4450 3450 4450 2950
+Wire Wire Line
+	4450 2950 5750 2950
+Wire Wire Line
+	5750 2950 5750 3450
+Connection ~ 4450 3450
+Wire Wire Line
+	4450 3450 4500 3450
+$Comp
+L Device:R R?
+U 1 1 5F81347E
+P 4400 3650
+AR Path="/5F81347E" Ref="R?"  Part="1" 
+AR Path="/5F811AD9/5F81347E" Ref="R9"  Part="1" 
+F 0 "R9" H 4470 3696 50  0000 L CNN
+F 1 "1k" H 4470 3605 50  0000 L CNN
+F 2 "" V 4330 3650 50  0001 C CNN
+F 3 "~" H 4400 3650 50  0001 C CNN
+	1    4400 3650
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 3450
+Wire Wire Line
+	4400 3450 4450 3450
+Wire Wire Line
+	4400 3500 4400 3450
+$Comp
+L power:GND #PWR?
+U 1 1 5F813487
+P 4400 3800
+AR Path="/5F813487" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F813487" Ref="#PWR03"  Part="1" 
+F 0 "#PWR03" H 4400 3550 50  0001 C CNN
+F 1 "GND" H 4405 3627 50  0000 C CNN
+F 2 "" H 4400 3800 50  0001 C CNN
+F 3 "" H 4400 3800 50  0001 C CNN
+	1    4400 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L pspice:VSOURCE V1
+U 1 1 5F813EEC
+P 3300 3850
+F 0 "V1" H 3528 3896 50  0000 L CNN
+F 1 "3" H 3528 3805 50  0000 L CNN
+F 2 "" H 3300 3850 50  0001 C CNN
+F 3 "~" H 3300 3850 50  0001 C CNN
+	1    3300 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 3550 3300 3450
+Wire Wire Line
+	3300 3450 3800 3450
+Connection ~ 3800 3450
+$Comp
+L power:GND #PWR?
+U 1 1 5F816986
+P 3300 4150
+AR Path="/5F816986" Ref="#PWR?"  Part="1" 
+AR Path="/5F811AD9/5F816986" Ref="#PWR01"  Part="1" 
+F 0 "#PWR01" H 3300 3900 50  0001 C CNN
+F 1 "GND" H 3305 3977 50  0000 C CNN
+F 2 "" H 3300 4150 50  0001 C CNN
+F 3 "" H 3300 4150 50  0001 C CNN
+	1    3300 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 3450 4400 3450
+Text Notes 2750 2950 0    50   ~ 0
+.tran 1u 1m
+$EndSCHEMATC

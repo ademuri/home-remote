@@ -21,6 +21,7 @@ F 0 "U1" H 1700 1100 50  0000 C CNN
 F 1 "STM32F030F4Px" H 2300 1050 50  0000 C CNN
 F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 1500 1150 50  0001 R CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00088500.pdf" H 1900 1850 50  0001 C CNN
+F 4 "C89040" H 1900 1850 50  0001 C CNN "LCSC"
 	1    1900 1850
 	1    0    0    -1  
 $EndComp

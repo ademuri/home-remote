@@ -1,0 +1,24 @@
+# Enable validating this file
+version: ~> 1.0
+
+language: python
+python:
+    - "3.6"
+
+sudo: false
+cache:
+    directories:
+        - "~/.platformio"
+
+install:
+  - pip install -U platformio
+  - platformio update
+
+jobs:
+  include:
+    - script: platformio run -d src -e remote
+      name: "build remote"
+    - script: platformio run -d src -e gateway
+      name: "build gateway"
+
+

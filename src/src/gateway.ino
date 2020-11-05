@@ -22,6 +22,8 @@ static const std::vector<Remote> remotes = {
 };
 
 RH_RF69 radio(RADIO_SS, RADIO_DIO);
+// If the Home Assistant server reboots, we need to re-initialize and present.
+bool serial_disconnected = false;
 
 void log_debug(String message) {
   Serial.print("0;255;3;0;9;");
@@ -75,6 +77,14 @@ void present_remote(uint8_t device_id, const char *const name) {
   Serial.print(string_buffer);
 }
 
+void init_gateway() {
+  announce_gateway_ready();
+  present_gateway();
+  for (Remote remote : remotes) {
+    present_remote(remote.device_id, remote.name);
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   while (!Serial);
@@ -89,11 +99,7 @@ void setup() {
   radio.setFrequency(915.0);
   radio.available();
 
-  announce_gateway_ready();
-  present_gateway();
-  for (Remote remote : remotes) {
-    present_remote(remote.device_id, remote.name);
-  }
+  init_gateway();
 }
 
 void loop() {
@@ -121,6 +127,13 @@ void loop() {
       Serial.print(string_buffer);
 
     }
+  }
+
+  if (!Serial) {
+    serial_disconnected = true;
+  } else if (serial_disconnected && Serial) {
+    init_gateway();
+    serial_disconnected = false;
   }
 
   //delay(1);

@@ -3,7 +3,7 @@
 #include <RH_RF69.h>
 #include <SPI.h>
 
-const uint8_t kDeviceId = 0;
+const uint8_t kDeviceId = 1;
 
 // Pins
 // Note: including std::vector adds another ~1.8k of code, and makes the binary too big :|

@@ -135,8 +135,6 @@ void loop() {
     init_gateway();
     serial_disconnected = false;
   }
-
-  //delay(1);
 }
 
 #endif  // GATEWAY

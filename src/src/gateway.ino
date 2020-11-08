@@ -12,14 +12,27 @@ static char string_buffer[string_buffer_size];
 
 static const uint8_t kDeviceId = 250;
 
-struct Remote {
+// If the time between pressing the preset button is less than this, then cycle through presets.
+static const uint32_t kButtonCycleMs = 10 * 1000;
+// Which button cycles through presets
+static const uint8_t kCycleButton = 3;
+
+// Configuration for remote devices.
+struct RemoteConfig {
   const uint8_t device_id;
   const char *const name;
+  const uint8_t num_presets;
 };
 
-static const std::vector<Remote> remotes = {
-  {1, "Custom Switch"},
+static const std::vector<RemoteConfig> kRemoteConfigs = {
+  {1, "Custom Switch", 3},
 };
+
+struct RemoteState {
+  uint32_t last_pressed_ms;
+  uint8_t index;
+};
+std::vector<RemoteState> remote_states;
 
 RH_RF69 radio(RADIO_SS, RADIO_DIO);
 // If the Home Assistant server reboots, we need to re-initialize and present.
@@ -80,7 +93,7 @@ void present_remote(uint8_t device_id, const char *const name) {
 void init_gateway() {
   announce_gateway_ready();
   present_gateway();
-  for (Remote remote : remotes) {
+  for (RemoteConfig remote : kRemoteConfigs) {
     present_remote(remote.device_id, remote.name);
   }
 }
@@ -89,6 +102,9 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
 
+  for (uint32_t i = 0; i < kRemoteConfigs.size(); i++) {
+    remote_states.push_back({0, 0});
+  }
 
   if (!radio.init()) {
     log_debug("Unable to initialize radio.");
@@ -117,13 +133,29 @@ void loop() {
       }
 
       uint8_t device_id = packet_buffer[0] >> 2;
+      uint8_t pressed_button = packet_buffer[0] & 0b11;
+      uint8_t preset = 0;
+
+      for (uint32_t i = 0; i < kRemoteConfigs.size(); i++) {
+        if (kRemoteConfigs[i].device_id == device_id) {
+          if (pressed_button == kCycleButton && (millis() - remote_states[i].last_pressed_ms) < kButtonCycleMs) {
+            preset = remote_states[i].index;
+            remote_states[i].index = (remote_states[i].index + 1) % kRemoteConfigs[i].num_presets;
+          } else {
+            remote_states[i].index = 0;
+          }
+
+          remote_states[i].last_pressed_ms = millis();
+          break;
+        }
+      }
+
       uint8_t child_device_id = 0;
       const uint8_t command = 1; // set
       const uint8_t ack = 0; // normal message
       const uint8_t type = 19; // V_SCENE_ON
-      uint8_t pressed_button = packet_buffer[0] & 0b11;
 
-      snprintf(string_buffer, string_buffer_size, "%u;%u;%u;%u;%u;%u\n", device_id, child_device_id, command, ack, type, pressed_button);
+      snprintf(string_buffer, string_buffer_size, "%u;%u;%u;%u;%u;%u.%u\n", device_id, child_device_id, command, ack, type, pressed_button, preset);
       Serial.print(string_buffer);
 
     }

@@ -60,7 +60,6 @@ void setup() {
       }
     }
   }
-  digitalWrite(kLed, LOW);
 
   if (pressed_button >= 0) {
     // Initialize radio
@@ -75,14 +74,15 @@ void setup() {
     packet[0] = (kDeviceId << 2) | (pressed_button & 0b11);
 
     radio.send(packet, packet_size);
+    digitalWrite(kLed, LOW);
+
+    // Make sure packet is sent before going to sleep.
+    delay(1);
+    radio.sleep();
+    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
   }
 
-  // Make sure packet is sent before going to sleep.
-  delay(1);
-  radio.sleep();
-  // Note: this uses more power, but means that the device can be reprogrammed without needing to toggle the RESET pin.
-  HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-  //HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+  digitalWrite(kLed, LOW);
 }
 
 void loop() {

@@ -1,11 +1,15 @@
 #ifdef GATEWAY
 
+#include <FastLED.h>
 #include <RH_RF69.h>
 #include <SPI.h>
 
 #undef min
 #undef max
 #include <vector>
+
+static const int kNumLeds = 1;
+CRGB leds[kNumLeds];
 
 static const uint32_t string_buffer_size = 500;
 static char string_buffer[string_buffer_size];
@@ -99,8 +103,13 @@ void init_gateway() {
 }
 
 void setup() {
+  FastLED.addLeds<WS2812, WS2812_PIN>(leds, kNumLeds);
+    FastLED.showColor(CRGB(0, 16, 0));
+
   Serial.begin(115200);
   while (!Serial);
+
+  FastLED.showColor(CRGB(32, 0, 0));
 
   for (uint32_t i = 0; i < kRemoteConfigs.size(); i++) {
     remote_states.push_back({0, 0});
@@ -116,6 +125,7 @@ void setup() {
   radio.available();
 
   init_gateway();
+  FastLED.showColor(CRGB(0, 0, 0));
 }
 
 void loop() {
@@ -131,6 +141,7 @@ void loop() {
       if (received_length != 1) {
         log_debug("Invalid packet length: " + String(received_length));
       }
+      FastLED.showColor(CRGB(0, 0, 32));
 
       uint8_t device_id = packet_buffer[0] >> 2;
       uint8_t pressed_button = packet_buffer[0] & 0b11;
@@ -157,15 +168,18 @@ void loop() {
 
       snprintf(string_buffer, string_buffer_size, "%u;%u;%u;%u;%u;%u.%u\n", device_id, child_device_id, command, ack, type, pressed_button, preset);
       Serial.print(string_buffer);
-
+      FastLED.showColor(CRGB(0, 0, 0));
     }
   }
 
   if (!Serial) {
+    FastLED.showColor(CRGB(0, 16, 0));
     serial_disconnected = true;
   } else if (serial_disconnected && Serial) {
+    FastLED.showColor(CRGB(32, 0, 0));
     init_gateway();
     serial_disconnected = false;
+    FastLED.showColor(CRGB(0, 0, 0));
   }
 }
 

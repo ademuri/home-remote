@@ -25,11 +25,10 @@ static const uint8_t kCycleButton = 3;
 struct RemoteConfig {
   const uint8_t device_id;
   const char *const name;
-  const uint8_t num_presets;
 };
 
 static const std::vector<RemoteConfig> kRemoteConfigs = {
-  {1, "Custom Switch", 3},
+  {1, "Custom Switch"},
 };
 
 struct RemoteState {
@@ -145,28 +144,12 @@ void loop() {
 
       uint8_t device_id = packet_buffer[0] >> 2;
       uint8_t pressed_button = packet_buffer[0] & 0b11;
-      uint8_t preset = 0;
-
-      for (uint32_t i = 0; i < kRemoteConfigs.size(); i++) {
-        if (kRemoteConfigs[i].device_id == device_id) {
-          if (pressed_button == kCycleButton && (millis() - remote_states[i].last_pressed_ms) < kButtonCycleMs) {
-            preset = remote_states[i].index;
-            remote_states[i].index = (remote_states[i].index + 1) % kRemoteConfigs[i].num_presets;
-          } else {
-            remote_states[i].index = 0;
-          }
-
-          remote_states[i].last_pressed_ms = millis();
-          break;
-        }
-      }
-
       uint8_t child_device_id = 0;
       const uint8_t command = 1; // set
       const uint8_t ack = 0; // normal message
       const uint8_t type = 19; // V_SCENE_ON
 
-      snprintf(string_buffer, string_buffer_size, "%u;%u;%u;%u;%u;%u.%u\n", device_id, child_device_id, command, ack, type, pressed_button, preset);
+      snprintf(string_buffer, string_buffer_size, "%u;%u;%u;%u;%u;%u\n", device_id, child_device_id, command, ack, type, pressed_button);
       Serial.print(string_buffer);
       FastLED.showColor(CRGB(0, 0, 0));
     }

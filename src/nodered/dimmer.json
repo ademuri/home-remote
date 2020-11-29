@@ -1,0 +1,415 @@
+[
+    {
+        "id": "8caca964.3611e8",
+        "type": "subflow",
+        "name": "Dimmer Switch",
+        "info": "",
+        "category": "",
+        "in": [],
+        "out": [],
+        "env": [
+            {
+                "name": "LIGHT_ID",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "SWITCH_ID",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "SCENES",
+                "type": "json",
+                "value": "[]"
+            },
+            {
+                "name": "TRANSITION",
+                "type": "num",
+                "value": ".4"
+            }
+        ],
+        "color": "#DDAA99"
+    },
+    {
+        "id": "4de78849.409368",
+        "type": "server-state-changed",
+        "z": "8caca964.3611e8",
+        "name": "Switch",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "${SWITCH_ID}",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 70,
+        "y": 420,
+        "wires": [
+            [
+                "8cb4c879.35f548"
+            ]
+        ]
+    },
+    {
+        "id": "8cb4c879.35f548",
+        "type": "switch",
+        "z": "8caca964.3611e8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "e124c4d7.e718c8"
+            ],
+            [
+                "5768ab6c.00b044"
+            ],
+            [
+                "3b02e18.51ee41e"
+            ],
+            [
+                "c674ee8c.91ce1"
+            ]
+        ]
+    },
+    {
+        "id": "c674ee8c.91ce1",
+        "type": "api-call-service",
+        "z": "8caca964.3611e8",
+        "name": "Off",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "light",
+        "service": "turn_off",
+        "entityId": "${LIGHT_ID}",
+        "data": "{\"transition\": $env('TRANSITION')}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 370,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "641a8b8.1991c74",
+        "type": "api-call-service",
+        "z": "8caca964.3611e8",
+        "name": "Dim",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "light",
+        "service": "turn_on",
+        "entityId": "${LIGHT_ID}",
+        "data": "{\"brightness_step_pct\": -10, \"transition\": $env('TRANSITION')}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 710,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b59d7441.0c7c88",
+        "type": "api-call-service",
+        "z": "8caca964.3611e8",
+        "name": "Bright",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "light",
+        "service": "turn_on",
+        "entityId": "${LIGHT_ID}",
+        "data": "{\"brightness_step_pct\": 10, \"transition\": $env('TRANSITION')}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 710,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e124c4d7.e718c8",
+        "type": "api-current-state",
+        "z": "8caca964.3611e8",
+        "name": "light state",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "${LIGHT_ID}",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "9f6686f8.930a78"
+            ]
+        ]
+    },
+    {
+        "id": "9f6686f8.930a78",
+        "type": "function",
+        "z": "8caca964.3611e8",
+        "name": "",
+        "func": "const wasOn = msg.payload === \"off\";\nconst scenes = env.get(\"SCENES\");\nlet sceneId = flow.get(\"scene\");\nlet newMsg = {\"payload\": {}};\n\nif (wasOn) {\n    // Turn on lights to previous setting\n    newMsg.type = \"light\";    \n} else {\n    newMsg.type = \"scene\";\n    newMsg.payload.data = {\"entity_id\": scenes[sceneId]};\n    sceneId = (sceneId + 1) % scenes.length;\n    flow.set(\"scene\", sceneId);\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is deployed.\nflow.set(\"scene\", 0);",
+        "finalize": "",
+        "x": 540,
+        "y": 340,
+        "wires": [
+            [
+                "9528362a.798848"
+            ]
+        ]
+    },
+    {
+        "id": "108acbbd.0f5c24",
+        "type": "api-call-service",
+        "z": "8caca964.3611e8",
+        "name": "",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "light",
+        "service": "turn_on",
+        "entityId": "${LIGHT_ID}",
+        "data": "{\"transition\": $env('TRANSITION')}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 850,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9528362a.798848",
+        "type": "switch",
+        "z": "8caca964.3611e8",
+        "name": "",
+        "property": "type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "light",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "scene",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "108acbbd.0f5c24"
+            ],
+            [
+                "bee73ed.048b2c"
+            ]
+        ]
+    },
+    {
+        "id": "bee73ed.048b2c",
+        "type": "api-call-service",
+        "z": "8caca964.3611e8",
+        "name": "",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "scene",
+        "service": "turn_on",
+        "entityId": "",
+        "data": "{\"transition\": $env('TRANSITION')}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 850,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5768ab6c.00b044",
+        "type": "api-current-state",
+        "z": "8caca964.3611e8",
+        "name": "light state",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "${LIGHT_ID}",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "d6fd688f.84a6a8"
+            ]
+        ]
+    },
+    {
+        "id": "d6fd688f.84a6a8",
+        "type": "function",
+        "z": "8caca964.3611e8",
+        "name": "cool bright",
+        "func": "let colorTemp = msg.data.attributes.color_temp;\nif (msg.data.attributes.brightness < 255) {\n    colorTemp -= 15;\n}\nlet newMsg = {\n    \"payload\": {\n        \"data\": {\n            \"color_temp\": colorTemp\n        }\n    }\n};\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "b59d7441.0c7c88"
+            ]
+        ]
+    },
+    {
+        "id": "fd206003.714aa",
+        "type": "function",
+        "z": "8caca964.3611e8",
+        "name": "warm dim",
+        "func": "let colorTemp = msg.data.attributes.color_temp;\nif (msg.data.attributes.brightness > 0) {\n    colorTemp += 15;\n}\nlet newMsg = {\n    \"payload\": {\n        \"data\": {\n            \"color_temp\": colorTemp\n        }\n    }\n};\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 540,
+        "y": 480,
+        "wires": [
+            [
+                "641a8b8.1991c74"
+            ]
+        ]
+    },
+    {
+        "id": "3b02e18.51ee41e",
+        "type": "api-current-state",
+        "z": "8caca964.3611e8",
+        "name": "light state",
+        "server": "946ea9ae.77bf28",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "${LIGHT_ID}",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 380,
+        "y": 480,
+        "wires": [
+            [
+                "fd206003.714aa"
+            ]
+        ]
+    },
+    {
+        "id": "946ea9ae.77bf28",
+        "type": "server",
+        "name": "Home Assistant",
+        "addon": true
+    }
+]

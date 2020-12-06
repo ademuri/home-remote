@@ -1,5 +1,6 @@
 #ifdef REMOTE
 
+
 #include <RH_RF69.h>
 #include <SPI.h>
 
@@ -15,7 +16,7 @@ const int kLed = PA10;
 // Tuning constants
 // If the sense value changes more than this, the corresponding button is
 // considered pressed.
-const int32_t kSenseThreshold = 20;
+const int32_t kSenseThreshold = 10;
 
 RH_RF69 radio(/* SS */ PA4, /* interrupt */ PB1);
 
@@ -62,6 +63,8 @@ void setup() {
   }
 
   if (pressed_button >= 0) {
+    delay(5);
+
     // Initialize radio
     radio.init();
     radio.setTxPower(13, false);
@@ -74,7 +77,6 @@ void setup() {
     packet[0] = (kDeviceId << 2) | (pressed_button & 0b11);
 
     radio.send(packet, packet_size);
-    digitalWrite(kLed, LOW);
 
     // Make sure packet is sent before going to sleep.
     delay(1);
